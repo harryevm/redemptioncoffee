@@ -1,0 +1,263 @@
+<ul class="site-nav list--inline {{ nav_alignment }}" id="SiteNav">
+
+{% for link in linklists[section.settings.main_menu_link_list].links %}
+{% comment %}
+Check if third-level nav exists on each parent link.
+{% endcomment %}
+{%- assign three_level_nav = false -%}
+{%- assign child_list_handle = link.title | handleize -%}
+
+{% if linklists[child_list_handle].links != blank %}
+{% for childlink in linklists[child_list_handle].links %}
+{% assign grand_child_list_handle = childlink.title | handleize %}
+{% if linklists[grand_child_list_handle].links != blank %}
+{%- assign three_level_nav = true -%}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if linklists[child_list_handle].links != blank %}
+<li class="site-nav--has-dropdown{% if three_level_nav %} site-nav--has-centered-dropdown{% endif %}{% if link.active %} site-nav--active{% endif %}" aria-has-popup="true" aria-controls="SiteNavLabel-{{ child_list_handle }}">
+<a href="{{ link.url }}" class="site-nav__link site-nav__link--main">
+{{ link.title }}
+
+<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
+  <g id="_24x24_On_Light_Arrow-Bottom" data-name="24x24/On Light/Arrow-Bottom" transform="translate(0 24) rotate(-90)">
+    <rect id="view-box" width="24" height="24" fill="none"/>
+    <path id="Shape" d="M.22,10.22A.75.75,0,0,0,1.28,11.28l5-5a.75.75,0,0,0,0-1.061l-5-5A.75.75,0,0,0,.22,1.28l4.47,4.47Z" transform="translate(14.75 17.75) rotate(180)" fill="#141124"/>
+  </g>
+</svg>
+</a>
+
+<div class="site-nav__dropdown" id="SiteNavLabel-{{ child_list_handle }}" aria-expanded="false">
+<div class="sub-menu-inner-page">
+<div class="side-bar-menu">
+<ul class="sidebar-menu-list">
+{% for childlink in linklists[child_list_handle].links %}
+{% if childlink.links == blank %}
+<li class="{% if childlink.active %}site-nav--active{% endif %}" data-id="mega-parent-{{ childlink.handle }}">
+<a href="{{ childlink.url }}" class="site-nav__link main-bold-title">
+{{ childlink.title | escape }}
+</a>
+</li>
+{% endif %}
+{% endfor %}
+</ul>
+</div>
+{% assign image_block = false %}
+{% assign linktitle = link.title | downcase %}
+{% for block in section.blocks %}
+{%- assign val = block.settings.mega_link | downcase -%}
+{% if val == linktitle %}
+{% if block.settings.menu_enable %}
+{% assign image_block = true %}
+{% endif %}
+{% endif %}
+{% endfor %}
+<div class="middle-menu {% if image_block == false %}middle-menu-full{% endif %}">
+{% for childlink in linklists[child_list_handle].links %}
+{% if childlink.links != blank %}
+{% for grandlink in childlink.links %}
+{% assign valitem = forloop.length %}
+{% endfor %}
+<ul class="middle-menu-list {% if valitem >= 15 %}col-2{%endif%}">
+<p class="" data-id="mega-parent-{{ childlink.handle }}">
+<span class="site-nav__link main-bold-title">
+{{ childlink.title | escape }}
+</span>
+</p>
+{% assign item_count = 1 %}
+{% for grandlink in childlink.links %}
+<li class="site-nav__childlist-item">
+<a href="{{ grandlink.url }}" class="site-nav__child-link" >
+{{ grandlink.title }}
+</a>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endfor %}
+
+</div>
+{% if image_block == true %}
+<div class="image-section mega-list mega-list-logo">
+{% for block in section.blocks %}
+{%- assign val = block.settings.mega_link | handleize -%}
+{% if val == child_list_handle %}
+{% if block.settings.menu_enable %}
+{% unless block.settings.link == blank %}<a href="{{ block.settings.link }}">{% endunless %}
+<div class="img-box">
+<img src="{{ block.settings.image | img_url: '500x500' }}">
+<div class="text__section">
+{% unless block.settings.title == blank %}<h3>{{ block.settings.title }}</h3>{% endunless %}
+{% unless block.settings.subtitle == blank %}<p>{{ block.settings.subtitle }}</p>{% endunless %}
+</div>
+</div>
+{% unless block.settings.link == blank %}</a>{% endunless %}
+{% endif %}
+{% endif %}
+{% endfor %}
+</div>
+{% endif %}
+</div>
+</div>
+</li>
+{% else %}
+<li {% if link.active %}class="site-nav--active"{% endif %}>
+<a href="{{ link.url }}" class="site-nav__link site-nav__link--main">{{ link.title }}</a>
+</li>
+{% endif %}
+
+{% endfor %}
+</ul>
+
+<style>
+ul#SiteNav { width: 100%; display: flex; justify-content: end; list-style: none; }
+.site-nav, .site-nav--has-dropdown, .site-header {
+position: unset;
+}
+.site-nav__dropdown {
+    width: 96%;
+    left: 0;
+    right: 0;
+    min-width: unset;
+    margin: 0 auto;
+    background: transparent;
+    padding-top: 60px;
+}
+.site-nav__childlist {
+display: block;
+}
+.site-nav__dropdown .side-bar-menu{
+float: left;
+text-align: left;
+padding-top: 25px;
+padding-right: 30px;
+padding-bottom: 25px;
+width: 150px;
+padding-right: 10px;
+}
+.site-nav__dropdown .side-bar-menu .sidebar-menu-list li a{
+text-transform: uppercase;
+font-weight: bold;
+padding: 0 20px 10px 0;
+font-size: 13px;
+}
+.site-nav__dropdown .middle-menu{
+float: left;
+padding-top: 25px;
+padding-bottom: 25px;
+padding-left: 10px;
+padding-right: 10px;
+width: calc(100% - 370px);
+position: relative;
+display: flex;
+}
+.site-nav__dropdown .middle-menu .middle-menu-list{
+width: 20%;
+float: left;
+text-align: left;
+position: relative;
+padding-top: 50px;
+}
+.site-nav__dropdown .middle-menu .middle-menu-list p{
+position: absolute;
+top: -10px;
+margin-bottom: 0;
+width: 100%;
+}
+.site-nav__dropdown .middle-menu .middle-menu-list span.main-bold-title {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 10px 10px 0px;
+    display: block;
+    color: #000;
+    border-bottom: 1px solid #000;
+    line-height: 30px;
+}
+.site-nav__dropdown .middle-menu .middle-menu-list li { list-style: none; }
+.site-nav__dropdown .middle-menu .middle-menu-list a.site-nav__child-link {
+    text-transform: capitalize;
+    padding: 0 20px 10px 0px;
+    font-size: 15px;
+    font-weight: 100;
+    background: transparent;
+    color: #000;
+    line-height: 30px;
+}
+.site-nav__dropdown .image-section{
+float: left;
+padding-top: 25px;
+padding-bottom: 25px;
+position: relative;
+width: 220px;
+height: 100%;
+}
+.site-nav__dropdown .image-section .img-box{
+position: relative;
+}
+.site-nav__dropdown .image-section .text__section{
+position: absolute;
+top: 50%;
+left: 50%;
+width: 90%;
+transform: translate(-50%,-50%);
+color: rgb(204 204 204 / 60%);
+}
+.site-nav__dropdown .image-section .text__section h3{
+font-size: 14px;
+text-transform: uppercase;
+color: white;
+margin-bottom: 5px;
+}
+.site-nav__dropdown .image-section .text__section p{
+font-size: 13px;
+text-transform: inherit;
+color: white;
+font-weight: normal;
+}
+  .site-nav--has-dropdown>.site-nav__link::after {
+    position: absolute;
+    content: '';
+    background: transparent;
+    top: 30px;
+    left: -50px;
+    right: -30px;
+    bottom: -70px;
+  }
+.site-nav__dropdown .sub-menu-inner-page {
+    display: block;
+    margin: 0 auto;
+    padding: 0 55px;
+    overflow: auto;
+    background: rgb(204 204 204 / 80%);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+/* .site-nav--has-dropdown.is-focused>a, */.site-nav--has-dropdown:hover>a { color: #ed442a !important; background: transparent; } 
+.site-header .grid--table>.grid__item {
+vertical-align: bottom;
+}
+.site-nav {
+margin: 0;
+}
+.site-nav > li { padding: 20px 0; margin-right: 10px; }
+.site-nav--active-dropdown .site-nav__dropdown {
+display: block !important;
+}
+.img-box .text__section h3,
+.img-box .text__section p {
+text-align: center;
+}
+.mega-list-logo a {
+padding: 0;
+}
+.site-nav--has-dropdown .site-nav__dropdown{ display: none !important; } 
+.site-nav--has-dropdown:hover .site-nav__dropdown{ display: block !important; } 
+
+  @media(max-width:1024px){
+  	.site-nav__dropdown .sub-menu-inner-page { padding: 0 20px; display: flex; justify-content: space-between; }
+    .site-nav__dropdown .side-bar-menu { display: none; }
+    .site-nav__dropdown .middle-menu { width: 100%; }
+  }
+</style>
