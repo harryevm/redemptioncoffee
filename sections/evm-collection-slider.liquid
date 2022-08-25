@@ -1,0 +1,292 @@
+
+<style>
+  .evm-collection-list { margin-top: 250px; }
+.slider-page-width { padding: 0 4%; position: relative; }
+.slider-page-width::after{position: absolute; content: '';background-image:url({{'coffee-beans.png' | asset_img_url:'' }});right: 0; left: 0; background-size: 160px; background-repeat: no-repeat; top: 0; bottom: 0; background-position: right bottom;}
+.collection-slider { max-width: 1400px; margin: 0 auto; z-index: 1; }
+.collection-slide { padding: 0 60px; text-align: center; position: relative;opacity: 0.4; }
+.collection-slide.slick-slide.slick-current.slick-center { opacity: 1; }
+.collection-slide::after { position: absolute; content: ''; background-color: transparent; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.7; }
+.collection-slide.slick-slide.slick-current.slick-active.slick-center::after,
+  .collection-slide.slick-slide.slick-current.slick-center::after{display:none; }
+.coll-img { width: 100%; background:#F5F1E9; border-radius: 50%; height: 100%; padding: 50%; position: relative; }
+.coll-img > img { position: absolute; top: 50%; left: 50%; width: 70%; transform: translate(-50%, -50%); }
+.coll-info { margin-top: 50px; }
+.coll-info>h3 { font-family: 'Bahnschrift'; font-size: 25px; line-height: 35px; margin: 0 0 10px; }
+.coll-info>p.price { font: normal normal normal 25px/35px Colus; }
+.coll-info>a.primary-btn { background-color: #F0452B; border-radius: 45px; display: inline-block; padding: 12px 28px !important; color: #fff !important; text-transform: uppercase; font: normal normal 500 18px/28px Bahnschrift; text-align: center; }
+.paginator-center ul { z-index: 1;list-style: none; position: absolute; top: 30%; transform: translateY(-50%); margin: 0; padding: 0; display: flex; left: 0; right: 0; justify-content: center; }
+
+.paginator-center ul>li.slick-arrow,.paginator-center ul>li { width: 40px !important; margin: 0 8%; height: 40px; background: #fff; border-radius: 50%; text-align: center; box-shadow: 0 0 10px #ccc; cursor: pointer; }
+.paginator-center ul>li.slick-arrow>img,.paginator-center ul>li>img { width: 10px; margin-top: 11px; }
+.paginator-center ul>li.prev img { transform: rotate(180deg); }
+.paginator-center ul>li.slick-arrow.slick-disabled { opacity: 0;cursor: unset; }
+@media(max-width:1024px){
+	.collection-slide { padding: 0 20px;}
+}
+@media(max-width:768px){
+  .paginator-center ul { justify-content: space-between; }
+  .paginator-center ul>li.slick-arrow, .paginator-center ul>li{margin: 0px 1%;}
+  .collection-slide { opacity: 1; }
+}
+@media(max-width:480px){
+  .collection-slide { padding:0 10px; }
+}
+</style>
+<div class="index-section{% if section.settings.alt %} index-section--alt{% endif %}">
+  <div data-aos>
+
+    {%- if section.settings.title != blank -%}
+      <div class="page-width">
+        <header class="section-header">
+          <h2 class="section-header__title appear-delay">
+            {{ section.settings.title }}
+          </h2>
+        </header>
+      </div>
+    {%- endif -%}
+
+    <div class="slider-page-width">
+<!--       <div class="skrim-grid appear-delay-2"> -->
+        {%- liquid
+          assign isEmpty = true
+
+          if section.blocks.size > 0
+            assign isEmpty = false
+          endif
+
+          
+        -%}
+        
+        <div class="collection-slider">
+          {% for block in section.blocks limit: collection_limit %}
+          {% assign collection = collections[block.settings.collection] %}
+          	<div class="collection-slide">
+              <div class="coll-img">
+                {% if block.settings.image %}
+              	<img src="{{block.settings.image | img_url:''}}" alt="" />
+                {% elsif collection.image %}
+                <img src="{{collection.image | img_url:''}}" alt="" />
+                {% else %}
+                <img src="{{ collection.products.first | img_url: 'large' }}"  alt="{{ collection.title | escape }}" />
+                {% endif %}
+              </div>
+          	
+              <div class="coll-info">
+                <h3>{{ collection.title | escape }}</h3>
+                <p class="price">{{ block.settings.price | escape }}</p>
+                <a class="primary-btn" href="{{collection.url}}">Shop Coffee </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="paginator-center">
+            <ul>
+                <li class="prev"><img src="{{ 'arrow.png' | asset_img_url:''}}" alt="" /></li>
+                <li class="next"><img src="{{ 'arrow.png' | asset_img_url:''}}" alt="" /></li>
+            </ul>
+        </div>
+        {%- if isEmpty -%}
+          <div class="page-width">
+            <div class="grid">
+              <div class="grid__item">
+                <div class="rte">
+                  {{ 'home_page.onboarding.no_content' | t }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+<!-- 
+      </div> -->
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "EVM Collection Slider",
+  "max_blocks": 15,
+  "class":"evm-collection-list",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.featured-collections.settings.title.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "alt",
+      "label": "t:sections.featured-collections.settings.alt.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "EVM Collection Slider",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "t:sections.featured-collections.blocks.collection.name",
+      "settings": [
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "t:sections.featured-collections.blocks.collection.settings.collection.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.featured-collections.blocks.collection.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "t:sections.featured-collections.blocks.collection.settings.price.label"
+        },
+        {
+          "type": "select",
+          "id": "focal_point",
+          "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.label",
+          "info": "t:sections.featured-collections.blocks.collection.settings.focal_point.info",
+          "default": "center center",
+          "options": [
+            {
+              "value": "top left",
+              "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.options.top_left.label"
+            },
+            {
+              "value": "top center",
+              "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.options.top_center.label"
+            },
+            {
+              "value": "top right",
+              "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.options.top_right.label"
+            },
+            {
+              "value": "center left",
+              "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.options.center_left.label"
+            },
+            {
+              "value": "center center",
+              "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.options.center_center.label"
+            },
+            {
+              "value": "center right",
+              "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.options.center_right.label"
+            },
+            {
+              "value": "bottom left",
+              "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.options.bottom_left.label"
+            },
+            {
+              "value": "bottom center",
+              "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.options.bottom_center.label"
+            },
+            {
+              "value": "bottom right",
+              "label": "t:sections.featured-collections.blocks.collection.settings.focal_point.options.bottom_right.label"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"  />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"  />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" ></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+  const slider = $('.collection-slider');
+  
+  function onSliderAfterChange(event, slick, currentSlide) {
+    console.log(event.target);
+    $(event.target).data('current-slide', currentSlide);
+  }
+  if ($(window).width() >767) {
+  function onSliderWheel(e) {
+    var deltaY = e.originalEvent.deltaY,
+      $currentSlider = $(e.currentTarget),
+      currentSlickIndex = $currentSlider.data('current-slide') || 0;
+    
+    if (
+      // check when you scroll up
+      (deltaY < 0 && currentSlickIndex == 0) ||
+      // check when you scroll down
+      (deltaY > 0 && currentSlickIndex == $currentSlider.data('slider-length') - 1)
+    ) {
+      return;
+    }
+
+    e.preventDefault();
+
+    if (e.originalEvent.deltaY < 0) {
+      $currentSlider.slick('slickPrev');
+    } else {
+      $currentSlider.slick('slickNext');
+    }
+  }
+  }
+  
+  slider.each(function(index, element) {
+    var $element = $(element);
+    // set the length of children in each loop
+    // but the better way for performance is to set this data attribute on the div.slider in the markup
+    $element.data('slider-length', $element.children().length);
+  })
+  .slick({
+    infinite: false,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    dots: false,
+    prevArrow: $('.prev'),
+    nextArrow: $('.next'),
+    centerMode: true,
+    centerPadding: '60px',
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          centerMode: false,
+          slidesToShow:2,
+          infinite: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          centerPadding: '40px',
+          slidesToShow: 1,
+          infinite: true
+        }
+      }
+    ]
+  })
+  .on('afterChange', onSliderAfterChange)
+  .on('wheel', onSliderWheel);
+
+});
+</script>

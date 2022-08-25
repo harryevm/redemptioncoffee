@@ -1,0 +1,190 @@
+<section class="wholesale-page page-banner">
+  <img src="{{section.settings.image | img_url:''}}" alt="" />
+  <div class="page-width">
+  	<h1>{{ page.title }}</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="page-width content page">
+    <div class="wholesale_info_btns">
+      {% if section.settings.btn_url != blank %}
+      <a class="action_button" href="{{section.settings.btn_url}}">{% if section.settings.btn_label %}{{section.settings.btn_label}}{% else %}Read More{% endif %}</a>
+      {% endif %}
+      {% if section.settings.btn_url2 != blank %}
+      <a class="action_button" href="{{section.settings.btn_url2}}">{% if section.settings.btn_label2 %}{{section.settings.btn_label2}}{% else %}Read More{% endif %}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% if section.settings.main_heading != blank %}
+<section class="wholesale-main">
+  <div class="page-width">
+    <h2>{{section.settings.main_heading}}</h2>
+    {% if section.settings.content != blank %}
+    {{section.settings.content}}
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+{%- if section.blocks.size > 0 -%}
+<section class="wholesale-content">
+  <div class="page-width">
+    {%- for block in section.blocks -%}
+    <div class="wholesale-info-wrapper">
+      <div class="wholesale-img">
+        {%- if block.settings.image != blank -%}
+      	<img src="{{block.settings.image | img_url:''}}" />
+        {% if block.settings.btn_link != blank %}
+        	<a href="{{block.settings.btn_link}}" class="img-links"></a>
+        {% endif %}
+        {% endif %}
+      </div>
+      <div class="wholesale-cont">
+        <h3>{{block.settings.title}}</h3>
+        {{block.settings.content}}
+        <div class="default-btn">
+          <a href="{{block.settings.btn_link}}">{{block.settings.label}}</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Wholesale Buttons",
+    "class":"wholesale-section",
+    "settings": [
+	  {
+        "type": "header",
+        "content": "Banner Section"
+      },
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Banner Image"
+      },
+      {
+        "type": "header",
+        "content": "Main Content"
+      },
+	  {
+        "type": "text",
+        "id": "main_heading",
+        "label": "Heading"
+      },
+	  {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+      },
+      {
+        "type": "header",
+        "content": "Button 1"
+      },
+	  {
+        "type": "text",
+        "id": "btn_label",
+        "label": "Label",
+        "default": "Label"
+      },
+	  {
+        "type": "url",
+        "id": "btn_url",
+        "label": "Link"
+      },
+      {
+        "type": "header",
+        "content": "Button 2"
+      },
+	  {
+        "type": "text",
+        "id": "btn_label2",
+        "label": "Label",
+        "default": "Label"
+      },
+	  {
+        "type": "url",
+        "id": "btn_url2",
+        "label": "Link"
+      }
+	],
+    "blocks": [
+      {
+        "type": "wholesale",
+        "name": "Wholesale Content",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "html",
+            "id": "content",
+            "label": "Content"
+          },
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Button Label",
+			"default":"Read More"
+          },
+          {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Button Link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+.wholesale-section { margin-bottom: 150px; }
+.template-page { background-color: #fff; }
+
+.wholesale_info_btns { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 30px 0; border-bottom: 1px solid #ccc; padding-bottom: 30px; }
+.wholesale_info_btns a.action_button { display: inline-block; background-color: #f0452b; padding: 15px 25px; border-radius: 30px; transition: all .3s ease-out; text-align: center; color: #fff; }
+.wholesale_info_btns a.action_button:hover { background-color: #000;transition: all 0.3s ease-in; }
+.theme-block { color: #000; }
+.feature-row .h1 { font-size: 26px; line-height: 35px; }
+.feature-row__text .rte { font-size: 16px; line-height: 25px; }
+.feature-row a.btn { background-color: #f0452b; }
+.wholesale-img>a.img-links { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 90%; }
+section.wholesale-main { color: #000; text-align: center; margin: 80px 0; }
+section.wholesale-main h2 { font-family: 'Colus'; }
+
+.wholesale-info-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; }
+.wholesale-info-wrapper>* { width: 50%; position: relative; }
+.wholesale-info-wrapper:nth-child(2n) { flex-direction: row-reverse; }
+.wholesale-img > img { width: 90%; border-radius: 20px; }
+.wholesale-cont { color: #000; width: 48%; }
+.wholesale-cont .default-btn { margin-top: 50px; }
+.wholesale-cont .default-btn>a { background: #F0452B; display: inline-block; padding: 12px 40px; border-radius: 30px; color: #fff; font-size: 20px; line-height: 30px; transition: all 0.35s ease-out;}
+.wholesale-cont .default-btn>a:hover { background-color: #000; transition: all 0.35s ease-in; }
+.wholesale-cont ul{ margin: 0; list-style: none; }
+.wholesale-cont ul li { position: relative; padding-left: 20px; margin-bottom: 15px; }
+.wholesale-cont ul li::before { position: absolute; content: ''; width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 7px solid #F0452B; left: 0; }
+
+@media(max-width:650px){
+	.wholesale-info-wrapper { flex-direction: column !important; }
+    .wholesale-info-wrapper>*,.wholesale-cont,.wholesale-img>a.img-links  { width: 100%; text-align: center; }
+    .wholesale-img { margin-bottom: 30px; }
+	.wholesale-cont ul { text-align: left; }
+
+}
+@media(max-width:500px){
+  .wholesale_info_btns { flex-wrap: wrap; }
+  .wholesale_info_btns>* { width: 100%; margin-bottom: 20px; }
+}
+</style>
+{% javascript %}
+{% endjavascript %}

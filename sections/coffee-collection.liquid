@@ -1,0 +1,77 @@
+<section class="wholesale-page page-banner">
+  <img src="{{section.settings.image | img_url:''}}" alt="" />
+  <div class="page-width">
+  	<h1>{{ page.title }}</h1>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Coffee Collection",
+    "class":"coffee-collection-section",
+    "settings": [
+	  {
+        "type": "header",
+        "content": "Banner Section"
+      },
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Banner Image"
+      }
+	],
+    "blocks": [
+      {
+        "type": "wholesale",
+        "name": "Wholesale Content",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+.evm-collection-list { margin: 0 0 150px !important; }
+.collection-slider .slick-list.draggable { overflow: hidden !important; padding: 0 !important; }
+.collection-slide { padding: 30px 50px!important; }
+.coll-info { margin-top: 15px; }
+.coll-img { background: #00000033 !important; }
+.collection-slide.slick-slide:after { background: #58381F; left: 20px; right: 20px; opacity: .5; border-radius: 30px; }
+.collection-slide.slick-slide.slick-current.slick-center::before {
+    background: #825934;
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 20px;
+    right: 20px;
+    bottom: 0;
+    border-radius: 30px;
+}
+.coll-img {
+    width: 100%;
+    background: #F5F1E9;
+    border-radius: 50%;
+    height: 100%;
+    padding: 50%;
+    position: relative;
+    z-index: 1;
+}
+.coll-info {
+    margin-top: 15px;
+    z-index: 1;
+    position: relative;
+} 
+.coll-info>h3, .coll-info>p { color: #fff; }
+.evm-collection-list .paginator-center ul { top: 50%; }
+.evm-collection-list .paginator-center ul>li.slick-arrow, .paginator-center ul>li { width: 50px !important;margin: 0 9%; height: 50px;}
+.evm-collection-list .paginator-center ul>li.slick-arrow>img, .paginator-center ul>li>img { width: 12px; margin-top: 14px; }
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

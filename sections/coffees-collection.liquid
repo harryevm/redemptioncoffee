@@ -1,0 +1,379 @@
+
+<style>
+
+.collection-slider .slick-list.draggable { overflow: hidden !important; padding:0 10% 0 !important; }
+  
+.collection-slide { padding: 10px 30px 20px!important; }
+
+.coll-img { background: #00000033 !important; }
+.collection-slide.slick-slide:after { background: #58381F; left: 20px; right: 20px; opacity: .5; border-radius: 30px; }
+.collection-slide.slick-slide.slick-current.slick-center::before {
+    background: #825934;
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 20px;
+    right: 20px;
+    bottom: 0;
+    border-radius: 30px;
+}
+.coll-img {
+    width: 100%;
+    background: #F5F1E9;
+    border-radius: 50%;
+    height: 100%;
+    padding: 50%;
+    position: relative;
+    z-index: 1;
+}
+.collection-slide.slick-slide.slick-current.slick-center .coll-img { width: 40%; padding: 20%;background: #F5F1E9;border-radius: 50%;position: relative; z-index: 1; }
+.coll-info {
+    margin-top: 15px;
+    z-index: 1;
+    position: relative;
+} 
+.collection-slide.slick-slide.slick-current.slick-center { transform: translateY(-200px); transition: transform 0.55s linear; display: flex; justify-content: space-between; align-items: center; }
+.coll-info>h3, .coll-info>p { color: #fff; }
+.evm-collection-list .paginator-center ul { top: 50%; }
+.evm-collection-list .paginator-center ul>li.slick-arrow, .paginator-center ul>li { width: 50px !important;margin: 0 9%; height: 50px;}
+.evm-collection-list .paginator-center ul>li.slick-arrow>img, .paginator-center ul>li>img { width: 12px; margin-top: 14px; }
+div#CollectionAjaxContent > .grid { position: relative; }
+  .coll-img a.grid-product__link { visibility: visible; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 99; opacity: 0; }
+.collection-slider { max-width: 96%; margin: 20px auto 50px; z-index: 1; }
+.collection-slide { padding: 0 60px; text-align: center; position: relative;opacity: 0.4;transition:transform 0.55s linear; }
+.collection-slide.slick-slide.slick-current.slick-center { opacity: 1; }
+.collection-slide::after { position: absolute; content: ''; background-color: transparent; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.7; }
+.collection-slide.slick-slide.slick-current.slick-active.slick-center::after,
+  .collection-slide.slick-slide.slick-current.slick-center::after{display:none; }
+.coll-img { width: 100%; background: #F5F1E9; border-radius: 50%; height: 100%; padding: 15%; position: relative; margin: 0 auto; }
+.coll-img > img { position: absolute; top: 50%; left: 50%; width: 55%; transform: translate(-50%, -50%); }
+.coll-info { margin-top: 10px; }
+.coll-info>h3 { font-family: 'Bahnschrift'; font-size: 25px; line-height: 35px; margin: 0 0 10px; }
+.coll-info>p.price { font: normal normal normal 20px/35px Colus; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+.coll-info>a.primary-btn, .coll-info .primary-btn { background-color: #F0452B; border-radius: 45px; display: inline-block; padding: 12px 28px !important; color: #fff !important; text-transform: uppercase; font: normal normal 500 18px/28px Bahnschrift; text-align: center; appearance: none; border: 1px solid #F0452B; }
+.coll-info>a.primary-btn:hover, .coll-info .primary-btn:hover { background: transparent; border-color: #fff; }
+.secondary-btn { border: 1px solid #fff; border-radius: 45px; display: inline-block; padding: 12px 28px !important; color: #fff; text-transform: uppercase; font: normal normal 500 18px/28px Bahnschrift; text-align: center; }
+.secondary-btn:hover { background: #f0452b; border-color: #f0452b; }
+.btns-wrapper input.btn.primary-btn { margin-right: 10px; }
+.paginator-center ul { z-index: 1;list-style: none; position: absolute; top: 30%; transform: translateY(-50%); margin: 0; padding: 0; display: flex; left: 0; right: 0; justify-content: center; }
+
+.paginator-center ul>li.slick-arrow,.paginator-center ul>li { width: 40px !important; margin: 0 8%; height: 40px; background: #fff; border-radius: 50%; text-align: center; box-shadow: 0 0 10px #ccc; cursor: pointer; }
+.paginator-center ul>li.slick-arrow>img,.paginator-center ul>li>img { width: 10px; margin-top: 11px; }
+.paginator-center ul>li.prev img { transform: rotate(180deg); }
+.paginator-center ul>li.slick-arrow.slick-disabled { opacity: 0;cursor: unset; }
+  
+  
+  
+.collection-slider .slick-track { padding: 210px 0 250px; } 
+.collection-slide.slick-slide.slick-current.slick-center {transform: translateY(-200px);transition:transform 0.55s linear; }
+/*   .collection-slide.transY { transform: translateY(-200px);transition:transform 0.55s linear; } */
+.paginator-center ul { top: 30%; justify-content: space-between; width: 90%; margin: 0 auto; }
+.slider-nav .slick-track { width: 100% !important; transform: translate3d(0, 0,0) !important; display: flex; justify-content: center; }
+.slider-nav { position: absolute !important; bottom: 20%; width: 95%; margin: 0 auto; left: 0; right: 0; z-index: 1; background-image: url({{'shade.jpg' | asset_img_url:''}});background-repeat: no-repeat; background-size: 100% 100%; }
+.slider-nav .slick-slide { text-align: center; padding: 12px 0; height: 80px; }
+.slider-nav .slick-slide>span { transition:transform 0.55s linear;width: 50px; height: 50px; display: inline-block; text-align: center; border-radius: 50%; line-height: 3.5; color: #fff; font-size: 30px; position: relative; }
+.slider-nav .slick-slide.slick-current.slick-center > span { transform: translateY(-7px);transition:transform 0.55s linear;width: 70px; height: 70px; border-width: 2px; }
+.slider-nav .slick-slide>span >img { position: absolute; top: 5px; left: 0; right: 0; bottom: 0; max-width: 28px; margin: 0 auto; }
+.slider-nav .slick-slide.slick-current.slick-center > span>img { max-width: 40px; }
+.quick-view-button { text-align: center; top: 20%; left: 0; right: 0; width: 200px; margin: 0 auto; opacity: 0; }
+.collection-slide.slick-slide.slick-current.slick-center:hover .quick-view-button { opacity: 1; }
+.slider-nav .slick-slide { opacity: 0; visibility: hidden; }
+.slider-nav .slick-slide.slick-current.slick-center { opacity: 1; visibility: visible; position: absolute; }
+  
+.collection-slide.slick-slide.slick-current.slick-center .coll-info form.product-var { display: flex; align-items: center; flex-wrap: wrap; }
+.btns-wrapper { width: 100%; margin-top: 20px; }
+form.product-var select { margin-left: 20px; border: 1px solid; padding: 15px 25px; color: #fff; border-radius: 5px; }
+.coll-info p, .coll-info span, .coll-info { color: #fff; }
+.collection-slide.slick-slide.slick-current.slick-center .coll-info { text-align: left; width: 55%; }
+.product-var label { margin: 0; font-size: 18px; line-height: 30px; }
+  .product-desc, form.product-var { display: none; } 
+.collection-slide.slick-slide.slick-current.slick-center .coll-info .product-desc { display: block; }
+form.product-var select{background:url({{'down.png' | asset_img_url:'' }}) no-repeat right  center}
+  .product-desc { height: 330px; overflow-y: auto; margin-bottom: 20px; }
+  
+  
+@media(max-width:1024px){
+	.collection-slide { padding: 0 20px;}
+}
+@media(max-width:768px){
+  .paginator-center ul { justify-content: space-between; }
+  .paginator-center ul>li.slick-arrow, .paginator-center ul>li{margin: 0px 1%;}
+  .collection-slide { opacity: 1; }
+}
+@media(max-width:480px){
+  .collection-slide { padding:0 10px; }
+}
+</style>
+{% comment %}
+  This sections requires the same `paginate_by` variable value as
+  the other sections for the ajax loading to work.
+  If you change the number below, it must also be changed in:
+  - sections/collection-template
+  - sections/featured-collection-slider
+  - snippets/page-block-featured-collection-slider
+{% endcomment %}
+{%- liquid
+  assign paginate_by = 24
+  assign per_row_desktop = 3
+  assign per_row_mobile = 1
+  assign mobile_flush = false
+
+  for block in section.blocks
+    case block.type
+    when 'product_grid'
+      assign per_row_desktop = block.settings.per_row_desktop
+      assign per_row_mobile = block.settings.per_row_mobile
+      if per_row_mobile == '2-flush'
+        assign mobile_flush = true
+      endif
+    endcase
+  endfor
+
+  case per_row_desktop
+    when 2
+      assign grid_large_width = 'medium-up--one-half'
+    when 3
+      assign grid_large_width = 'medium-up--one-third'
+    when 4
+      assign grid_large_width = 'medium-up--one-quarter'
+  endcase
+
+  assign grid_small_width = 'grid-product--padded'
+
+  if per_row_mobile contains '2'
+    assign per_row_mobile = 2
+    assign grid_small_width = 'small--one-half'
+  endif
+-%}
+
+{%- capture grid_item_width -%}{{ grid_small_width }} {{ grid_large_width}}{%- endcapture -%}
+
+{% paginate collection.products by paginate_by %}
+
+<div
+  id="CollectionGrid"
+  data-section-id="{{ section.id }}"
+  data-section-type="collection-grid"
+  data-product-sliders-mobile="{% if per_row_mobile == '1' %}true{% else %}false{% endif %}">
+
+  <div class="page-width">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'collection_description' -%}
+        {%- if collection.description != blank -%}
+          <div class="rte text-center" {{ block.shopify_attributes }}>
+            {{ collection.description }}
+          </div>
+        {%- endif -%}
+      {%- when 'product_grid' -%}
+        <div id="CollectionAjaxContent">
+          <div
+            class="grid grid--uniform grid--scattered-large-{{ per_row_desktop }} grid--scattered-small-{{ per_row_mobile }}{% if mobile_flush %} small--grid--flush{% endif %}"
+            data-collection-container>
+			<div class="collection-slider">
+            {%- for product in collection.products -%}
+              {%- render 'product-grid-item'
+                product: product,
+                grid_item_width: grid_item_width,
+              	coffee-collection:'true'
+              -%}
+            {%- else -%}
+              <div class="grid__item">
+                <p>{{ 'collections.general.no_matches' | t }}</p>
+              </div>
+            {%- endfor -%}
+            </div>
+            <div class="paginator-center">
+                  <ul>
+                    <li class="prev"><img src="{{ 'arrow.png' | asset_img_url:''}}" alt="" /></li>
+                    <li class="next"><img src="{{ 'arrow.png' | asset_img_url:''}}" alt="" /></li>
+                </ul>
+            </div>
+            <div class="slider-nav"> 
+              {%- for product in collection.products -%} 
+              	<div><span><img src="{{product.metafields.custom.bean_shade | img_url:''}}" /></span></div> 
+              {%- endfor -%} 
+            </div>
+          </div>
+          
+          {%- if paginate.pages > 1 -%}
+            {%- render 'pagination', paginate: paginate -%}
+          {%- endif -%}
+        </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% endpaginate %}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "CollectionPage",
+    {% if collection.description != blank %}
+      "description": {{ collection.description | strip_html | json }},
+    {% endif %}
+    {% if page_image %}
+      {% assign image_size = page_image.width | append: 'x' %}
+      "image": {
+        "@type": "ImageObject",
+        "height": {{ page_image.height | json }},
+        "url": {{ page_image | img_url: image_size | prepend: "https:" | json }},
+        "width": {{ page_image.width | json }}
+      },
+    {% endif %}
+    "name": {{ collection.title | json }}
+  }
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection.name",
+  "blocks": [
+    {
+      "type": "collection_description",
+      "name": "t:sections.main-collection.blocks.collection_description.name",
+      "limit": 1
+    },
+    {
+      "type": "product_grid",
+      "name": "t:sections.main-collection.blocks.products.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "per_row_desktop",
+          "label": "t:sections.main-collection.blocks.products.settings.per_row_desktop.label",
+          "default": 3,
+          "min": 2,
+          "max": 20,
+          "step": 1
+        },
+        {
+          "type": "select",
+          "id": "per_row_mobile",
+          "label": "t:sections.main-collection.blocks.products.settings.per_row_mobile.label",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.main-collection.blocks.products.settings.per_row_mobile.options.2.label"
+            },
+            {
+              "value": "2-flush",
+              "label": "t:sections.main-collection.blocks.products.settings.per_row_mobile.options.2-flush.label"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"  />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"  />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" ></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+  const slider = $('.collection-slider');
+  
+  function onSliderAfterChange(event, slick, currentSlide) {
+    console.log(event.target);
+    $(event.target).data('current-slide', currentSlide);
+    $('.slick-current').siblings().removeClass('transY');
+    $('.slick-current').prev().addClass('transY');
+    $('.slick-current').next().addClass('transY');
+    
+    
+  }
+  if ($(window).width() >767) {
+  function onSliderWheel(e) {
+    var deltaY = e.originalEvent.deltaY,
+      $currentSlider = $(e.currentTarget),
+      currentSlickIndex = $currentSlider.data('current-slide') || 0;
+    
+    if (
+      // check when you scroll up
+      (deltaY < 0 && currentSlickIndex == 0) ||
+      // check when you scroll down
+      (deltaY > 0 && currentSlickIndex == $currentSlider.data('slider-length') - 1)
+    ) {
+      return;
+    }
+
+    e.preventDefault();
+
+    if (e.originalEvent.deltaY < 0) {
+      $currentSlider.slick('slickPrev');
+    } else {
+      $currentSlider.slick('slickNext');
+    }
+  }
+  }
+  
+  slider.each(function(index, element) {
+    var $element = $(element);
+    // set the length of children in each loop
+    // but the better way for performance is to set this data attribute on the div.slider in the markup
+    $element.data('slider-length', $element.children().length);
+  })
+  .slick({
+    infinite: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dots: false,
+    prevArrow: $('.prev'),
+    nextArrow: $('.next'),
+    centerMode: true,
+    centerPadding: '60px',
+    asNavFor: '.slider-nav',
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          centerMode: false,
+          slidesToShow:2,
+          infinite: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          centerPadding: '40px',
+          slidesToShow: 1,
+          infinite: true
+        }
+      }
+    ]
+  })
+  .on('afterChange', onSliderAfterChange)
+  .on('wheel', onSliderWheel);
+
+    
+    
+    
+    
+});
+  $('.slider-nav').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  asNavFor: '.collection-slider',
+  dots: false,
+  centerMode: true,
+  focusOnSelect: true,
+  infinite: false,
+});
+  
+  
+
+</script>

@@ -1,0 +1,94 @@
+{%- if section.settings.collection_image_enable  -%}
+<section class="wholesale-page page-banner">
+  {% if collection.image != blank %}
+    {% assign collImg = collection.image %}
+    {% else %}
+    {% assign collImg = section.settings.image %}
+    {% endif %}
+  <img src="{{collImg | img_url:''}}" alt="" />
+  <div class="page-width">
+  	<h1>{{ collection.title }}</h1>
+  </div>
+</section>
+{% comment %}
+{%- if section.settings.collection_image_enable  -%}
+<div class="page-width">
+  <div class="collection-hero"
+    data-aos="hero__animation">
+    {% if collection.image != blank %}
+    {% assign collImg = collection.image %}
+    {% else %}
+    {% assign collImg = section.settings.image %}
+    {% endif %}
+    <div
+      class="collection-hero__image lazyload"
+      data-bgset="{% render 'bgset', image: collImg %}"
+      data-sizes="auto">
+    </div>
+    <noscript>
+      <div
+        class="collection-hero__image"
+        style="background-image: url({{ collImg | img_url: '1400x' }});";
+        ></div>
+    </noscript>
+
+    <div class="collection-hero__content">
+      <div class="page-width text-center">
+        <div class="hero__text-shadow" data-aos>
+          <header class="section-header section-header--hero" data-aos>
+            <h1 class="section-header__title appear-delay">
+              {{ collection.title }}
+            </h1>
+            {%- if collection.description != blank and section.settings.description_enable -%}
+              {%- assign desc_length = collection.description | size -%}
+              <div class="rte section-header__description{% if desc_length < 200 %} section-header__description--large{% endif %} appear-delay-1">
+                {{ collection.description }}
+              </div>
+            {%- endif -%}
+          </header>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> {%- endif -%}{% endcomment %}
+{%- else -%}
+  <div class="page-width page-content page-content--flush-bottom">
+    <header class="section-header" data-aos>
+      <h1 class="section-header__title appear-delay">
+        {{ collection.title }}
+      </h1>
+
+      {%- if collection.description != blank and section.settings.description_enable -%}
+        {%- assign desc_length = collection.description | size -%}
+        <div class="rte section-header__description{% if desc_length < 200 %} section-header__description--large{% endif %} appear-delay-1">
+          {{ collection.description }}
+        </div>
+      {%- endif -%}
+    </header>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.collection-header.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "collection_image_enable",
+      "label": "t:sections.collection-header.settings.collection_image_enable.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "description_enable",
+      "label": "t:sections.collection-header.settings.description_enable.label",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner Image"
+    }
+  ]
+}
+{% endschema %}
